@@ -50,7 +50,7 @@ func makeRequest(targetURL string, proxyAddr string, wg *sync.WaitGroup) {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode == 200 {
+	if resp.StatusCode == http.StatusOK {
 		fmt.Printf("\033[32m[+] Success: %s - Status Code: %d\033[0m\n", targetURL, resp.StatusCode)
 	} else {
 		fmt.Printf("\033[33m[!] Error: %s - Status Code: %d\033[0m\n", targetURL, resp.StatusCode)
@@ -60,9 +60,9 @@ func makeRequest(targetURL string, proxyAddr string, wg *sync.WaitGroup) {
 func main() {
 	printLogo()
 
-	listPath := flag.String("l", "", "Path to the list of URLs ")
-	proxyAddr := flag.String("p", "", "Proxy address")
-	threads := flag.Int("t", 10, "Number of threads to use (default 10)")
+	listPath := flag.String("l", "", "Path to the list of URLs")
+	proxyAddr := flag.String("p", "", "Proxy address (host:port)")
+	threads := flag.Int("t", 10, "Number of threads to use")
 	flag.Parse()
 
 	if *listPath == "" || *proxyAddr == "" {
@@ -78,7 +78,7 @@ func main() {
 
 	file, err := os.Open(*listPath)
 	if err != nil {
-		fmt.Printf("Failed to open file: %s\n", err)
+		fmt.Printf("\033[31m[!] Failed to open file: %s\033[0m\n", err)
 		return
 	}
 	defer file.Close()
@@ -100,6 +100,10 @@ func main() {
 			defer func() { <-sem }()
 			makeRequest(u, *proxyAddr, &wg)
 		}(url)
+	}
+
+	if err := scanner.Err(); err != nil {
+		fmt.Printf("\033[31m[!] Error reading file: %s\033[0m\n", err)
 	}
 
 	wg.Wait()
