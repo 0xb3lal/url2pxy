@@ -63,9 +63,9 @@ func main() {
 	listPath := flag.String("l", "", "Path to the list of URLs")
 	proxyAddr := flag.String("p", "", "Proxy address (host:port)")
 	threads := flag.Int("t", 10, "Number of threads to use")
-	flag.Parse()
 
-	if *listPath == "" || *proxyAddr == "" {
+	// Override usage
+	flag.Usage = func() {
 		fmt.Println("Usage:")
 		fmt.Println("")
 		fmt.Println("  url2pxy -p [Proxy] -l [urls_list] -t [Threads]")
@@ -74,6 +74,12 @@ func main() {
 		fmt.Println("  -p    Proxy address (host:port)")
 		fmt.Println("  -l    Path to the list of URLs")
 		fmt.Println("  -t    Number of threads to use (default: 10)")
+	}
+
+	flag.Parse()
+
+	if *listPath == "" || *proxyAddr == "" {
+		flag.Usage()
 		return
 	}
 
