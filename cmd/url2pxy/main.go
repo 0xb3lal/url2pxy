@@ -67,6 +67,7 @@ func main() {
 
 	if *listPath == "" || *proxyAddr == "" {
 		fmt.Println("Usage:")
+		fmt.Println("")
 		fmt.Println("  url2pxy -p [Proxy] -l [urls_list] -t [Threads]")
 		fmt.Println("")
 		fmt.Println("Options:")
