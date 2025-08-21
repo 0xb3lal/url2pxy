@@ -16,7 +16,7 @@ It is useful for quickly replaying a set of URLs into your proxy for testing and
 You need [Go](https://go.dev/dl/) installed.
 
 ```bash
-go install -v github.com/0xb3lal/url2pxy@latest
+go install -v github.com/0xb3lal/url2pxy/cmd/url2pxy@latest
 ```
 
 This will install `url2pxy` into your `$GOPATH/bin` (make sure it’s in your `$PATH`).
