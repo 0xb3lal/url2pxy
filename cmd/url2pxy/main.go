@@ -13,13 +13,13 @@ import (
 )
 
 func printLogo() {
-    fmt.Println("            _ ____                  ")
-    fmt.Println(" _   _ _ __| |___ \\ _ ____  ___   _ ")
-    fmt.Println("| | | | '__| | __) | '_ \\ \\/ / | | |")
-    fmt.Println("| |_| | |  | |/ __/| |_) >  <| |_| |")
-    fmt.Println(" \\__,_|_|  |_|_____| .__/_/\\_\\\\__, |")
-    fmt.Println("                   |_|        |___/ ")
-    fmt.Println("")
+	fmt.Println("            _ ____                  ")
+	fmt.Println(" _   _ _ __| |___ \\ _ ____  ___   _ ")
+	fmt.Println("| | | | '__| | __) | '_ \\ \\/ / | | |")
+	fmt.Println("| |_| | |  | |/ __/| |_) >  <| |_| |")
+	fmt.Println(" \\__,_|_|  |_|_____| .__/_/\\_\\\\__, |")
+	fmt.Println("                   |_|        |___/ ")
+	fmt.Println("")
 }
 
 func makeRequest(targetURL string, proxyAddr string, wg *sync.WaitGroup) {
@@ -34,7 +34,7 @@ func makeRequest(targetURL string, proxyAddr string, wg *sync.WaitGroup) {
 	transport := &http.Transport{
 		Proxy: http.ProxyURL(proxyURL),
 		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true, 
+			InsecureSkipVerify: true,
 		},
 	}
 
@@ -66,7 +66,13 @@ func main() {
 	flag.Parse()
 
 	if *listPath == "" || *proxyAddr == "" {
-		fmt.Println("Usage: url2pxy -p [Proxy] -l [urls_list] -t [Threads]")
+		fmt.Println("Usage:")
+		fmt.Println("  url2pxy -p [Proxy] -l [urls_list] -t [Threads]")
+		fmt.Println("")
+		fmt.Println("Options:")
+		fmt.Println("  -p    Proxy address (host:port)")
+		fmt.Println("  -l    Path to the list of URLs")
+		fmt.Println("  -t    Number of threads to use (default: 10)")
 		return
 	}
 
