@@ -18,6 +18,9 @@ You need [Go](https://go.dev/dl/) installed.
 ```bash
 go install -v github.com/0xb3lal/url2pxy/cmd/url2pxy@latest
 ```
+
+**Run from anywhere**
+
 ```bash
 sudo ln -s $(pwd)/go/bin/url2pxy /usr/local/bin
 ```
